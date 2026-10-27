@@ -1,0 +1,30 @@
+# Planning schema; cloud compute is not physically inside an ACI tenant.
+# Cloud route tables/security groups and ACI contracts are separate controls.
+package: cloud-hybrid
+availability: ha-design-pending-az-validation
+clusters:
+  management:
+    placement: cloud
+    servers: 3
+    server_vcpu: 4
+    server_memory_gib: 8
+    workers: 2
+    worker_vcpu: 8
+    worker_memory_gib: 24
+  service:
+    placement: cloud-or-onprem
+    servers: 3
+    server_vcpu: 4
+    server_memory_gib: 8
+    workers: 3
+    worker_vcpu: 8
+    worker_memory_gib: 16
+network:
+  aci_connectivity: REDUNDANT_VPN_OR_PRIVATE_INTERCONNECT
+  cidr_overlap_check: REQUIRED
+  inter_az_latency_validation: REQUIRED
+  private_api_access: REQUIRED
+  cloud_console_break_glass: REQUIRED
+backup:
+  destination: INDEPENDENT_ENCRYPTED_BACKUP_ACCOUNT
+  restore_test: REQUIRED
