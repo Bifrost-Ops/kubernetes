@@ -1,0 +1,18 @@
+# Only explicitly labeled Kubernetes Services can be advertised.
+# Service LoadBalancer IPs are advertised as host routes by default.
+# No PodCIDR or ClusterIP advertisement is enabled in this baseline.
+apiVersion: cilium.io/v2
+kind: CiliumBGPAdvertisement
+metadata:
+  name: bifrost-approved-loadbalancers
+  labels:
+    bifrost.io/advertise: approved
+spec:
+  advertisements:
+    - advertisementType: Service
+      service:
+        addresses:
+          - LoadBalancerIP
+      selector:
+        matchLabels:
+          bifrost.io/bgp-export: "true"
