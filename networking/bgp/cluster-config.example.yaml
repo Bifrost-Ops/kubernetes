@@ -21,6 +21,6 @@ spec:
             name: bifrost-ipv4-peer
         - name: upstream-b
           peerASN: 65000
-          peerAddress: 192.0.2.2
+          peerAddress: 198.51.100.1
           peerConfigRef:
             name: bifrost-ipv4-peer
