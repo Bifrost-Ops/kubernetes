@@ -1,0 +1,26 @@
+# EXAMPLE ONLY: RFC 5737 documentation IPs; replace before use.
+# ASN 65010 is illustrative, not allocated to this deployment.
+# Select only nodes deliberately labeled as BGP speakers.
+# Validate that the configured peer is an actual reachable routed neighbor.
+apiVersion: cilium.io/v2
+kind: CiliumBGPClusterConfig
+metadata:
+  name: bifrost-service-bgp
+spec:
+  nodeSelector:
+    matchLabels:
+      bifrost.io/bgp-speaker: "true"
+  bgpInstances:
+    - name: service
+      localASN: 65010
+      peers:
+        - name: upstream-a
+          peerASN: 65000
+          peerAddress: 192.0.2.1
+          peerConfigRef:
+            name: bifrost-ipv4-peer
+        - name: upstream-b
+          peerASN: 65000
+          peerAddress: 192.0.2.2
+          peerConfigRef:
+            name: bifrost-ipv4-peer
