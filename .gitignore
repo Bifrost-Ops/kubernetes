@@ -1,0 +1,13 @@
+# No kubeconfigs, join tokens, plaintext secrets or cluster backups.
+kubeconfig
+*.kubeconfig
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.agekey
+*.backup
+*.snap
+secrets/
+backups/
