@@ -1,0 +1,38 @@
+# Bifrost planning schema; sizing baseline, not guaranteed SLA.
+# Three independent etcd server failure domains per cluster are required.
+# Keep backup and out-of-band recovery independent of the management cluster.
+package: onprem-ha
+availability: ha-design
+clusters:
+  management:
+    tenant: INFRA
+    servers: 3
+    server_vcpu: 4
+    server_memory_gib: 8
+    server_ssd_gib: 100
+    workers: 2
+    worker_vcpu: 8
+    worker_memory_gib: 24
+    worker_ssd_gib: 250
+  service:
+    tenant: SERVICE
+    servers: 3
+    server_vcpu: 4
+    server_memory_gib: 8
+    server_ssd_gib: 100
+    workers: 3
+    worker_vcpu: 8
+    worker_memory_gib: 16
+    worker_ssd_gib: 150
+interfaces:
+  redundant_data_nics_per_host: 2
+  recommended_data_link_gbps: 10
+  independent_leaf_paths: true
+  dedicated_bmc_per_host: true
+  independent_oob: true
+  dual_power_feeds_recommended: true
+backup:
+  destination: OFF_CLUSTER_ENCRYPTED_STORAGE_REQUIRED
+  etcd_snapshot_and_token: REQUIRED
+  persistent_volume_backup: REQUIRED
+  restore_test: REQUIRED
