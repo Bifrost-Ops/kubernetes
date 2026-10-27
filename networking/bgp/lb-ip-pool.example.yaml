@@ -1,0 +1,11 @@
+# Documentation-only RFC 5737 pool; never deploy unchanged.
+# Disabled until the network owner assigns a real, routable prefix.
+# Cilium LB-IPAM must be enabled and compatible with installed Cilium.
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: bifrost-service-vips
+spec:
+  disabled: true
+  blocks:
+    - cidr: 198.51.100.0/28
