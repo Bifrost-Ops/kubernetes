@@ -1,0 +1,14 @@
+# Cilium BGP Control Plane example (v2 CRDs).
+# Advertise only resources with the explicit "bifrost.io/advertise=approved" label.
+# This is a sample and must be validated against the pinned Cilium release.
+apiVersion: cilium.io/v2
+kind: CiliumBGPPeerConfig
+metadata:
+  name: bifrost-ipv4-peer
+spec:
+  families:
+    - afi: ipv4
+      safi: unicast
+      advertisements:
+        matchLabels:
+          bifrost.io/advertise: approved
