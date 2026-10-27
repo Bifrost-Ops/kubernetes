@@ -1,0 +1,28 @@
+# Bifrost planning schema, NOT a Kubernetes manifest or K3s config.
+# Purpose: disposable lab with separate management and service clusters.
+# Recovery: recreate VMs from image, restore secure secrets, reconcile Git.
+package: onprem-lab
+availability: non-ha
+clusters:
+  management:
+    tenant: INFRA
+    servers: 1
+    server_vcpu: 4
+    server_memory_gib: 12
+    server_ssd_gib: 120
+    workers: 0
+  service:
+    tenant: SERVICE
+    servers: 1
+    server_vcpu: 4
+    server_memory_gib: 8
+    server_ssd_gib: 100
+    workers: 0
+interfaces:
+  data_nics_min: 1
+  data_nics_recommended: 2
+  dedicated_bmc_recommended: true
+  independent_oob_recommended: true
+backup:
+  destination: EXTERNAL_ENCRYPTED_STORAGE_REQUIRED
+  restore_test: REQUIRED
