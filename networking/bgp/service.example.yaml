@@ -1,0 +1,19 @@
+# Illustrative service; BGP export is an explicit opt-in.
+# Requires a working application deployment matching the selector.
+# Not applied by default: no real backend or allocated routable VIP exists.
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-bgp-service
+  namespace: default
+  labels:
+    bifrost.io/bgp-export: "true"
+spec:
+  type: LoadBalancer
+  selector:
+    app: example
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+      protocol: TCP
