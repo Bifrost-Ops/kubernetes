@@ -1,0 +1,24 @@
+# Planning input only; NOT consumed by an installer.
+# Pin and verify versions in a tested installation runbook before execution.
+environment: lab
+
+# Single-server topology is suitable only for a disposable lab.
+# A production topology needs datastore, quorum and backup design.
+cluster:
+  name: bifrost-lab
+  topology: single-server
+  k3s_version: PIN_TESTED_VERSION
+
+# Cilium requires a verified K3s CNI configuration and network design.
+# Do not install two conflicting CNIs or disable kube-proxy without validating
+# the intended replacement behavior and version compatibility.
+network:
+  cni: cilium
+  cilium_version: PIN_TESTED_VERSION
+  pod_cidr: SET_AFTER_IPAM_REVIEW
+  service_cidr: SET_AFTER_IPAM_REVIEW
+
+# Argo CD is enabled only after cluster and CNI health checks pass.
+gitops:
+  enabled: false
+  argocd_version: PIN_TESTED_VERSION
